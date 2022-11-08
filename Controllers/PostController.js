@@ -1,5 +1,6 @@
-import PostModel from '../Models/postModel.js'
-
+import PostModel from "../Models/postModel.js";
+import mongoose from "mongoose";
+import UserModel from "../Models/userModel.js";
 // Creat new Post
 export const createPost = async (req, res) => {
   const newPost = new PostModel(req.body)
@@ -77,7 +78,8 @@ export const likePost = async (req, res) => {
     res.status(500).json(error)
   }
 }
-// }
+
+// Get Timeline POsts
 export const getTimelinePosts = async (req, res) => {
   const userId = req.params.id
 
