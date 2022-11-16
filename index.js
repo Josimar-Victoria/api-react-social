@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 const app = express()
@@ -8,11 +9,16 @@ const app = express()
 import AuthRoute from './Routes/AuthRoute.js'
 import UserRoute from './Routes/UserRoute.js'
 import PostRoute from './Routes/PostRoute.js'
+import UploadRoute from './Routes/UploadRoute.js'
+
+// to serve images for public
+app.use(express.static('public'))
+app.use('/images', express.static('images'))
 
 // Middleware
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
-
+app.use(cors())
 dotenv.config()
 
 mongoose
@@ -32,4 +38,5 @@ mongoose
 // usage or router
 app.use('/auth', AuthRoute)
 app.use('/user', UserRoute)
-app.use('/post', PostRoute)
+app.use('/posts', PostRoute)
+app.use('/upload', UploadRoute)
